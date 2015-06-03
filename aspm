@@ -22,5 +22,13 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+export PATH
 
+case ${1} in
+  install|ins) do_install;;
+  update|up) do_update;;
+  remove|rm) do_remove;;
+  *) echo "usage: ${0}";;
+esac
 # vim: ft=sh:ts=2:sw=2:sts=2:syn=sh:et
