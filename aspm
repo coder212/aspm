@@ -25,10 +25,47 @@
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 export PATH
 
+do_install() {
+  local force only_fetch only_build resume OPTIND
+  force="NO"
+  only_fetch="NO"
+  only_build="NO"
+  resume="NO"
+
+  while getopts Ffbr opts; do
+    case "${opts}" in
+      F)
+        force="YES"
+        ;;
+      f)
+        only_fetch="YES"
+        ;;
+      b)
+        only_build="YES"
+        ;;
+      r)
+        resume="YES"
+        ;;
+    esac
+  done
+  shift $(( ${OPTIND} + 1 ))
+
+  check_package "$@"
+}
+
 case ${1} in
-  install|ins) do_install;;
-  update|up) do_update;;
-  remove|rm) do_remove;;
+  install|ins)
+    shift
+    do_install "$@"
+    ;;
+  update|up)
+    shift
+    do_update
+    ;;
+  remove|rm)
+    shift
+    do_remove "$@"
+    ;;
   *) echo "usage: ${0}";;
 esac
 # vim: ft=sh:ts=4:sw=2:sts=2:syn=sh:et
