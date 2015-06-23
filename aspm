@@ -26,13 +26,14 @@ PATH=/sbin:/usr/sbin:/bin:/usr/bin
 export PATH
 
 do_install() {
-  local force only_fetch only_build resume OPTIND
+  local force only_fetch only_build nonstop resume OPTIND
   force="NO"
   only_fetch="NO"
   only_build="NO"
+  nonstop="NO"
   resume="NO"
 
-  while getopts Ffbr opts; do
+  while getopts Ffbcr opts; do
     case "${opts}" in
       F)
         force="YES"
@@ -43,6 +44,9 @@ do_install() {
       b)
         only_build="YES"
         ;;
+      c)
+        nonstop="YES"
+        ;;
       r)
         resume="YES"
         ;;
@@ -50,7 +54,12 @@ do_install() {
   done
   shift $(( ${OPTIND} + 1 ))
 
-  check_package "$@"
+  if [ "X${nonstop}" = "XYES" ]; then
+    check_package -c "$@"
+  else
+    check_package "$@"
+  fi
+
 }
 
 case ${1} in
