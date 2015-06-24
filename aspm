@@ -33,7 +33,7 @@ PKGLIST="${ASPKG_DIR}/pkglist"
 
 do_install() {
   local force only_fetch only_build nonstop resume OPTIND
-  local tmp_pkg count pkg
+  local tmp_pkg count
   force="NO"
   only_fetch="NO"
   only_build="NO"
@@ -63,34 +63,30 @@ do_install() {
   shift $(( ${OPTIND} - 1 ))
 
   for pkg in "${@}"; do
-    tmp_pkg=($( split_pkg_ver ${pkg} ))
-    #count="$(  grep '[/]*'${tmp_pkg[0]}'$' ${PKGLIST} | wc -l )"
-    count="$(  pkg_repo ${tmp_pkg[0]} ${PKGLIST} | wc -l )"
-    if [ ${count} -ne 1 ]; then
-      if [ "X${nonstop}" != "XYES" ]; then
-        return # what return value?
-      else
-        continue
-      fi
-    fi
+    tmp_pkg="$( get_aspkg ${pkg} )"
+    case ${?} in
+      0)
+        ;;
+      1)
+        if [ "X${nonstop}" != "XYES" ]; then
+          echo "Error: package ${pkg} is not found in any repository."
+          return 1
+        else
+          continue
+        fi
+        ;;
+      2)
+        if [ "X${nonstop}" != "XYES" ]; then
+          echo "Error: package ${pkg} is found in more than one repositories."
+          echo "${tmp_pkg}"
+          return 2
+        else
+          continue
+        fi
+        ;;
+    esac
 
-    #pkg="$( grep '[/]*'${tmp_pkg[0]}'$' ${PKGLIST} )"
-    pkg="$( pkg_repo ${tmp_pkg[0]} ${PKGLIST} )"
-    if [ -n "${tmp_pkg[1]}" ]; then
-      pkg="${ASPKG_DIR}/${pkg}/aspkg-${tmp_pkg[1]}"
-    else
-      pkg="${ASPKG_DIR}/${pkg}/aspkg"
-    fi
-
-    if [ ! -e "${pkg}" ]; then
-      if [ "X${nonstop}" != "XYES" ]; then
-        return # what return value?
-      else
-        continue
-      fi
-    fi
-
-    echo "${pkg}" # test prototyping
+    echo "${tmp_pkg}" # test prototyping
 
   done
 }
