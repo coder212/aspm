@@ -77,6 +77,7 @@ do_install() {
     else
       pkg="${ASPKG_DIR}/${pkg}/aspkg"
     fi
+
     if [ ! -e "${pkg}" -a "X${nonstop}" != "XYES" ]; then
       return # what return value?
     else
