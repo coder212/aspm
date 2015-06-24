@@ -9,5 +9,7 @@ split_pkg_ver() {
   echo "${1}" | sed -r 's/[-:]/ /'
 }
 
-
+pkg_repo() {
+  grep -E '[/]*[^[:alpha:]]*'${1}'$' "${2}"
+}
 # vim: ft=sh:ts=4:sw=2:sts=2:syn=sh:et

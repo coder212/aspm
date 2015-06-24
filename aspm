@@ -64,24 +64,30 @@ do_install() {
 
   for pkg in "${@}"; do
     tmp_pkg=($( split_pkg_ver ${pkg} ))
-    count="$(  grep '[/]*'${tmp_pkg[0]}'$' ${PKGLIST} | wc -l )"
-    if [ ${count} -ne 1 -a "X${nonstop}" != "XYES" ]; then
-      return # what return value?
-    else
-      continue
+    #count="$(  grep '[/]*'${tmp_pkg[0]}'$' ${PKGLIST} | wc -l )"
+    count="$(  pkg_repo ${tmp_pkg[0]} ${PKGLIST} | wc -l )"
+    if [ ${count} -ne 1 ]; then
+      if [ "X${nonstop}" != "XYES" ]; then
+        return # what return value?
+      else
+        continue
+      fi
     fi
 
-    pkg="$( grep '[/]*'${tmp_pkg[0]}'$' ${PKGLIST} )"
+    #pkg="$( grep '[/]*'${tmp_pkg[0]}'$' ${PKGLIST} )"
+    pkg="$( pkg_repo ${tmp_pkg[0]} ${PKGLIST} )"
     if [ -n "${tmp_pkg[1]}" ]; then
       pkg="${ASPKG_DIR}/${pkg}/aspkg-${tmp_pkg[1]}"
     else
       pkg="${ASPKG_DIR}/${pkg}/aspkg"
     fi
 
-    if [ ! -e "${pkg}" -a "X${nonstop}" != "XYES" ]; then
-      return # what return value?
-    else
-      continue
+    if [ ! -e "${pkg}" ]; then
+      if [ "X${nonstop}" != "XYES" ]; then
+        return # what return value?
+      else
+        continue
+      fi
     fi
 
     echo "${pkg}" # test prototyping
