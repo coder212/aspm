@@ -67,6 +67,8 @@ do_install() {
     count="$(  grep '[/]*'${tmp_pkg[0]}'$' ${PKGLIST} | wc -l )"
     if [ ${count} -ne 1 -a "X${nonstop}" != "XYES" ]; then
       return # what return value?
+    else
+      continue
     fi
 
     pkg="$( grep '[/]*'${tmp_pkg[0]}'$' ${PKGLIST} )"
@@ -75,8 +77,10 @@ do_install() {
     else
       pkg="${ASPKG_DIR}/${pkg}/aspkg"
     fi
-    if [ ! -e "${pkg}" ]; then
+    if [ ! -e "${pkg}" -a "X${nonstop}" != "XYES" ]; then
       return # what return value?
+    else
+      continue
     fi
 
     echo "${pkg}" # test prototyping
