@@ -25,14 +25,22 @@
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 export PATH
 
+. ./aspm.conf
+
+. ./libaspm.sh
+
+PKGLIST="${ASPKG_DIR}/pkglist"
+
 do_install() {
   local force only_fetch only_build nonstop resume OPTIND
+  local tmp_pkg count pkg
   force="NO"
   only_fetch="NO"
   only_build="NO"
   nonstop="NO"
   resume="NO"
 
+  OPTIND=1
   while getopts Ffbcr opts; do
     case "${opts}" in
       F)
@@ -52,18 +60,32 @@ do_install() {
         ;;
     esac
   done
-  shift $(( ${OPTIND} + 1 ))
+  shift $(( ${OPTIND} - 1 ))
 
-  if [ "X${nonstop}" = "XYES" ]; then
-    check_package -c "$@"
-  else
-    check_package "$@"
-  fi
+  for pkg in "${@}"; do
+    tmp_pkg=($( split_pkg_ver ${pkg} ))
+    count="$(  grep '[/]*'${tmp_pkg[0]}'$' ${PKGLIST} | wc -l )"
+    if [ ${count} -ne 1 -a "X${nonstop}" != "XYES" ]; then
+      return # what return value?
+    fi
 
+    pkg="$( grep '[/]*'${tmp_pkg[0]}'$' ${PKGLIST} )"
+    if [ -n "${tmp_pkg[1]}" ]; then
+      pkg="${ASPKG_DIR}/${pkg}/aspkg-${tmp_pkg[1]}"
+    else
+      pkg="${ASPKG_DIR}/${pkg}/aspkg"
+    fi
+    if [ ! -e "${pkg}" ]; then
+      return # what return value?
+    fi
+
+    echo "${pkg}" # test prototyping
+
+  done
 }
 
 case ${1} in
-  install|ins)
+  install|in)
     shift
     do_install "$@"
     ;;
