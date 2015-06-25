@@ -39,10 +39,10 @@ get_aspkg() {
 }
 
 split_pkg_ver() {
-  echo "${1}" | sed -r 's/[-:]/ /'
+  echo "${1}" | sed -r 's/[-:]/ /' 2> /dev/null
 }
 
 pkg_repo() {
-  grep -E '\<'${1}'$' "${2}"
+  grep -E '\<'${1}'$' "${2}" 2> /dev/null
 }
 # vim: ft=sh:ts=4:sw=2:sts=2:syn=sh:et
