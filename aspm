@@ -33,7 +33,7 @@ PKGLIST="${ASPKG_DIR}/pkglist"
 
 do_install() {
   local force only_fetch only_build nonstop resume OPTIND
-  local tmp_pkg count
+  local tmp_pkg aspkg
   force="NO"
   only_fetch="NO"
   only_build="NO"
@@ -86,9 +86,12 @@ do_install() {
         ;;
     esac
 
+    aspkg+=" ${tmp_pkg}"
+
     echo "${tmp_pkg}" # test prototyping
 
   done
+  echo "${aspkg}"
 }
 
 case ${1} in
