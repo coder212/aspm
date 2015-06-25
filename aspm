@@ -91,7 +91,7 @@ do_install() {
     echo "${tmp_pkg}" # test prototyping
 
   done
-  echo "${aspkg}"
+  echo "${aspkg#?}"
 }
 
 case ${1} in

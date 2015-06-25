@@ -14,8 +14,8 @@ get_aspkg() {
   local pkg_name tmp count
 
   tmp=($( split_pkg_ver "${1}" ))
-  count="$( pkg_repo ${tmp[0]} ${PKGLIST} | wc -l )"
   pkg_name="$( pkg_repo ${tmp[0]} ${PKGLIST} )"
+  count="$( echo ${pkg_name} | wc -w )"
   case ${count} in
     0)
       return 1
