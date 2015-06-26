@@ -68,6 +68,7 @@ do_install() {
   done
   shift $(( ${OPTIND} - 1 ))
 
+  local pkg
   for pkg in "${@}"; do
     tmp_pkg="$( get_aspkg ${pkg} )"
     case ${?} in
