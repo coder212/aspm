@@ -1,0 +1,7 @@
+pkg_name="bash"
+pkg_ver="4.3.39"
+pkg_desc="Bash is an sh-compatible shell that incorporates useful features from the Korn shell (ksh) and C shell (csh)."
+pkg_rdeps="core/readline"
+pkg_bdeps=""
+
+# vim: ft=sh:ts=4:sw=2:sts=2:syn=sh:et
