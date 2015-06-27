@@ -38,4 +38,9 @@ get_aspkg() {
   return 0
 }
 
+# get_src_file() aspkg
+get_src_file() {
+  :
+}
+
 # vim: ft=sh:ts=4:sw=2:sts=2:syn=sh:et
