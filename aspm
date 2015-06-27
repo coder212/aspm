@@ -29,13 +29,17 @@ if [ -e etc/aspm/aspm.conf ]; then
   . etc/aspm/aspm.conf
 fi
 
+ASPM_DIR="var/lib/aspm"
+ASPM_CACHE_DIR="var/lib/cache/aspm"
+PKGLIST="${ASPKG_DIR}/pkglist"
+PKG_LIST_INSTALLED="${ASPKG_DIR}/INSTALLED"
+PKG_LIST_DEPS="${ASPM_DIR}/DEPS"
+
 if [ -d usr/lib/aspm ]; then
   for f in usr/lib/aspm/* ; do
     . "${f}"
   done
 fi
-
-PKGLIST="${ASPKG_DIR}/pkglist"
 
 do_install() {
   local force only_fetch only_build nonstop resume OPTIND
