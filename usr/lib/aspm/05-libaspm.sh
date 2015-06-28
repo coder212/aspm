@@ -11,11 +11,15 @@ check_package() {
 # 1 - Not found
 # 2 - Multiple
 get_aspkg() {
-  local pkg_name tmp count
+  local pkg_name tmp count name ver
 
   tmp=($( split_pkg_ver "${1}" ))
-  pkg_name="$( pkg_repo ${tmp[0]} ${PKGLIST} )"
-  count="$( echo ${pkg_name} | wc -w )"
+  name="${tmp[0]}"
+  if [ -n "${tmp[1]}" ]; then
+    ver="${tmp[1]}"
+  fi
+  count="$( pkg_count ${name} ${PKG_LIST} )"
+  pkg_name="$( pkg_repo ${name} ${PKG_LIST} )"
   case ${count} in
     0)
       return 1
@@ -28,8 +32,8 @@ get_aspkg() {
       ;;
   esac
 
-  if [ -n "${tmp[1]}" ]; then
-    pkg_name="${ASPKG_DIR}/${pkg_name}/aspkg-${tmp[1]}"
+  if [ -n "${ver}" ]; then
+    pkg_name="${ASPKG_DIR}/${pkg_name}/aspkg-${ver}"
   else
     pkg_name="${ASPKG_DIR}/${pkg_name}/aspkg"
   fi
@@ -40,6 +44,10 @@ get_aspkg() {
 
 # get_src_file() aspkg
 get_src_file() {
+  :
+}
+
+build_package() {
   :
 }
 

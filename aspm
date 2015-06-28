@@ -22,6 +22,11 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+unset -v CDPATH
+unset -v GREP_OPTIONS
+unset -v PATH
+
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 export PATH
 
@@ -30,8 +35,9 @@ if [ -e etc/aspm/aspm.conf ]; then
 fi
 
 declare -r ASPM_DIR="var/lib/aspm"
-declare -r ASPM_CACHE_DIR="var/lib/cache/aspm"
-declare -r PKGLIST="${ASPKG_DIR}/pkglist"
+declare -r ASPM_CACHE_DIR="var/cache/aspm"
+declare -r PKG_LIST="${ASPKG_DIR}/pkglist"
+declare -r PKG_SRC_DIR="${ASPKG_DIR}/sources"
 declare -r PKG_LIST_INSTALLED="${ASPKG_DIR}/INSTALLED"
 declare -r PKG_LIST_DEPS="${ASPM_DIR}/DEPS"
 
