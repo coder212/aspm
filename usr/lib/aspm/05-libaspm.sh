@@ -18,8 +18,8 @@ get_aspkg() {
   if [ -n "${tmp[1]}" ]; then
     ver="${tmp[1]}"
   fi
-  count="$( pkg_count ${name} ${PKG_LIST} )"
-  pkg_name="$( pkg_repo ${name} ${PKG_LIST} )"
+  count="$( pkg_count ${name} )"
+  pkg_name="$( pkg_repo ${name} )"
   case ${count} in
     0)
       return 1
