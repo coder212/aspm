@@ -85,6 +85,23 @@ source_aspkg() {
   shopt -s extglob
 }
 
+# unset_aspkg()
+# unset variables and functions from previously sourced aspkg
+unset_aspkg() {
+  local vars funcs
+  vars="pkg_name pkg_ver pkg_desc pkg_rdeps pkg_bdeps"
+  vars="${vars} pkg_arch pkg_license pkg_uri pkg_src"
+  vars="${vars} pkg_hashsum pkg_post_rule"
+  for var in ${vars}; do
+    unset -v ${var}
+  done
+
+  funcs="aspkg_preapre aspkg_build aspkg_pre_install aspkg_install"
+  for func in ${funcs}; do
+    unset -f ${func}
+  done
+}
+
 # get_src_file() aspkg
 get_src_file() {
   :
