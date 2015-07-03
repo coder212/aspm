@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # is_in() val array
 # check if val is in array
 is_in() {

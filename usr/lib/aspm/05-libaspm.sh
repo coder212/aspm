@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # get_aspkg() pkg_name
 # return value:
@@ -70,6 +70,19 @@ get_runtime_deps() {
     done
   fi
   printf "%s\n" "${rdeps# }"
+}
+
+# source_aspkg() aspkg
+# source the aspkg
+source_aspkg() {
+  shopt -u extglob
+
+  if ! source "${@}"; then
+    # should we print error?
+    return 1 # TODO: exit status
+  fi
+
+  shopt -s extglob
 }
 
 # get_src_file() aspkg

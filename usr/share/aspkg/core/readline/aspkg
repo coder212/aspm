@@ -1,12 +1,12 @@
-pkg_name="bash"
-pkg_ver="4.3.30"
-pkg_desc="Bash is an sh-compatible shell that incorporates useful features from the Korn shell (ksh) and C shell (csh)."
-pkg_rdeps=('readline::core/readline')
+pkg_name="readline"
+pkg_ver="6.3"
+pkg_desc="The Readline package is a set of libraries that offers command-line editing and history capabilities."
+pkg_rdeps=('core/ncurses')
 pkg_bdeps=()
 pkg_arch="x86 x86_64"
 pkg_license="GPLv3"
-pkg_uri="http://www.gnu.org/s/bash"
-pkg_src=('bash::http://ftp.gnu.org/gnu/bash/${pkg_name}-${pkg_ver}.tar.gz')
+pkg_uri="http://www.gnu.org/s/readline"
+pkg_src=('readline::http://ftp.gnu.org/gnu/bash/${pkg_name}-${pkg_ver}.tar.gz')
 pkg_hashsum=("md5::summd5" "md5::summd5")
 pkg_post_rule="cuma skrip post install/uninstall"
 
