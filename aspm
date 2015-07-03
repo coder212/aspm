@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # aspm - main script -*- mode: Sh; coding: utf-8; -*-
 #
 # The MIT License (MIT)
@@ -38,8 +38,8 @@ declare -r ASPM_DIR="var/lib/aspm"
 declare -r ASPM_CACHE_DIR="var/cache/aspm"
 declare -r PKG_LIST="${ASPKG_DIR}/pkglist"
 declare -r PKG_SRC_DIR="${ASPKG_DIR}/sources"
-declare -r PKG_LIST_INSTALLED="${ASPKG_DIR}/INSTALLED"
-declare -r PKG_LIST_DEPS="${ASPM_DIR}/DEPS"
+declare -r PKG_INSTALLED="${ASPKG_DIR}/INSTALLED"
+declare -r PKG_DEPS="${ASPM_DIR}/DEPS"
 
 if [ -d usr/lib/aspm ]; then
   for f in usr/lib/aspm/* ; do

@@ -1,10 +1,5 @@
 #!/bin/sh
 
-check_package() {
-  :
-  # stub belum tau mau di isi apaan
-}
-
 # get_aspkg() pkg_name
 # return value:
 # 0 - Success
@@ -40,6 +35,41 @@ get_aspkg() {
 
   echo "${pkg_name}"
   return 0
+}
+
+# get_build_deps() $pkg_bdeps[@]
+# return build dependency
+get_build_deps() {
+  local bdeps
+  if [ -n "${pkg_bdeps}" ]; then
+    local dep
+    for dep in "${pkg_bdeps[@]}"; do
+      bdeps+=" ${dep}"
+    done
+  fi
+  printf "%s\n" "${bdeps# }"
+}
+
+# get_runtime_deps() $pkg_rdeps[@]
+# return runtime dependency
+get_runtime_deps() {
+  local rdeps
+  if [ -n "${pkg_rdeps}" ]; then
+    local dep
+    for dep in "${pkg_rdeps[@]}"; do
+      if [[ "${dep}" == *::* ]]; then
+        is_in "${dep%::*}" "${ASPKG_CONFIG_OPTIONS[@]}"
+        if [ ${?} -eq 0 ]; then
+          rdeps+=" ${dep#*::}"
+        else
+          continue
+        fi
+      else
+        rdeps+=" ${dep}"
+      fi
+    done
+  fi
+  printf "%s\n" "${rdeps# }"
 }
 
 # get_src_file() aspkg
