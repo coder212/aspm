@@ -58,7 +58,7 @@ get_runtime_deps() {
     local dep
     for dep in "${pkg_rdeps[@]}"; do
       if [[ "${dep}" == *::* ]]; then
-        is_in "${dep%::*}" "${ASPKG_CONFIG_OPTIONS[@]}"
+        is_in "${dep%::*}" "${ASPKG_CONFIG_OPTIONS[@]}" # TODO: we should check per package options
         if [ ${?} -eq 0 ]; then
           rdeps+=" ${dep#*::}"
         else
