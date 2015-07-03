@@ -22,7 +22,7 @@ get_aspkg() {
     1)
       ;;
     *)
-      echo "${pkg_name}"
+      printf "%s\n" "${pkg_name}"
       return 2
       ;;
   esac
@@ -33,7 +33,12 @@ get_aspkg() {
     pkg_name="${ASPKG_DIR}/${pkg_name}/aspkg"
   fi
 
-  echo "${pkg_name}"
+  if [ ! -e "${pkg_name}" ]; then
+    printf "%s\n" "${pkg_name}"
+    return 3 # TODO: exit status
+  fi
+
+  printf "%s\n" "${pkg_name}"
   return 0
 }
 

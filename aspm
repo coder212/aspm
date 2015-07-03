@@ -87,7 +87,7 @@ do_install() {
       1)
         if [ "X${nonstop}" != "XYES" ]; then
           echo "Error: package ${pkg} is not found in any repository."
-          return 1 # TODO: exit status
+          exit 1 # TODO: exit status
         else
           continue
         fi
@@ -96,7 +96,15 @@ do_install() {
         if [ "X${nonstop}" != "XYES" ]; then
           echo "Error: package ${pkg} is found in more than one repositories."
           echo "${tmp_pkg}"
-          return 2 # TODO: exit status
+          exit 2 # TODO: exit status
+        else
+          continue
+        fi
+        ;;
+      3)
+        if [ "X${nonstop}" != "XYES" ]; then
+          echo "Error: the aspkg for ${pkg} is not found."
+          exit 3 # TODO: exit status
         else
           continue
         fi
