@@ -1,0 +1,8 @@
+source aspkg
+check if configure options have been enabled globally
+ask whether to enable or disable configure options if not enabled globally
+get runtime deps and build deps and get runtime deps based on config options
+unset aspkg's variables and functions
+!! should we ask the config options for runtime deps and build deps?
+collect and fetch the sources
+vim: tw=79:ft=text
