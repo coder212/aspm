@@ -108,7 +108,10 @@ get_src_file() {
 }
 
 build_package() {
-  :
+  local aspkg
+  for aspkg in ${@}; do
+    echo $aspkg # prototyping
+  done
 }
 
 # vim: ft=sh:ts=4:sw=2:sts=2:syn=sh:et
