@@ -10,7 +10,7 @@ pkg_src=('bash::http://ftp.gnu.org/gnu/bash/${pkg_name}-${pkg_ver}.tar.gz')
 pkg_hashsum=("md5::summd5" "md5::summd5")
 pkg_post_rule="cuma skrip post install/uninstall"
 
-aspkg_preapre() {
+aspkg_prepare() {
   : # just left it empty
 }
 
